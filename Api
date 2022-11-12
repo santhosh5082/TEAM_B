@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import demo #my file name for fetching code
-from demo import x
-import numpy as np
+from demo import x #function we used in fetching code
+
 
 #Initialize the flask App
 app = Flask(__name__)
@@ -14,7 +14,7 @@ def home():
 
 #To use the predict button in our web-app
 @app.route('/find',methods=['POST','GET'])
-def find(): #any function name but it should be used in HTML
+def find(): #function name that is used in HTML
     '''
     For rendering results on HTML GUI
     '''
