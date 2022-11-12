@@ -1,0 +1,27 @@
+from flask import Flask, request, jsonify, render_template
+import demo #my file name for fetching code
+from demo import x
+import numpy as np
+
+#Initialize the flask App
+app = Flask(__name__)
+
+
+#default page of our web-app
+@app.route('/')
+def home():
+    return render_template('a.html')# Name of HTML we are taking
+
+#To use the predict button in our web-app
+@app.route('/find',methods=['POST','GET'])
+def find(): #any function name but it should be used in HTML
+    '''
+    For rendering results on HTML GUI
+    '''
+    a = [str(i) for i in request.form.values()] #date as string values
+    x(a[0],a[1]) #Taking as parameters for our function x
+    return render_template('a.html') #our HTML Page and need to do modifications if required
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
