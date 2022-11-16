@@ -1,0 +1,266 @@
+<!-- -- -->
+  <!-- ------ -->
+    <!-- ---------- -->
+
+
+        <!-- DON'T PLAY WITH THIS CODE!!! -->
+
+
+    <!-- ---------- -->
+  <!-- ------ -->
+<!-- ------------ -->
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Tyre Performance</title>
+
+    <style>
+
+        body {
+            display: block;
+            margin: auto;
+            text-align: center;
+            box-sizing: border-box;
+            background-color: #F7F7F7;
+            font-family: 'Roboto', sans-serif;;
+        }
+
+        #navbar {
+            margin-bottom: 55px;
+            height: 75px;
+            max-width: 100%;
+            padding-top: 18px;
+            background-color:   #8EC3B0;
+            color: rgb(0, 0, 0);
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+
+        #navhead {
+            margin-left: 10px; 
+            margin-top: 40px;
+            font-size: 42px;
+            padding-left: 20px;
+        }
+
+        .bookmark {
+                margin-right: 10px;
+        }
+
+
+        #form_heading {
+            color: #3d896d;
+            font-size: 28px;
+            
+        }
+
+        img {
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        #oops_image {
+            width: 45%;
+            height: 400px;
+            margin-top: 5px;
+        }
+
+        h2 {
+            padding-top: 20px;
+            color: rgb(225, 54, 54);
+        }
+
+        form {
+            /* Center the form on the page */
+            margin: 10px auto;
+            height: 250px;
+            width: 600px;
+            /* Form outline */
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        form li + li {
+            margin-top: 1em;
+        }
+
+        label {
+            /* Uniform size & alignment */
+            display: inline-block;
+            width: 90px;
+            text-align: right;
+        }
+
+        input {
+            /* To make sure that all text fields have the same font settings
+                By default, textareas have a monospace font */
+            font: 1em sans-serif;
+
+            /* Uniform text field size */
+            width: 300px;
+            box-sizing: border-box;
+
+            /* Match form field borders */
+            border: 1px solid #999;
+        }
+
+        input:focus {
+            /* Additional highlight for focused elements */
+            border-color: #000;
+        }
+
+        .bn9 {
+            padding: 2px;
+            outline: 0;
+            font-size: 17px;
+            color: rgb(0, 0, 0);
+            background: -webkit-gradient(
+                linear,
+                left top,
+                right top,
+                from(#fdde5c),
+                color-stop(#f8ab5e),
+                color-stop(#f56a62),
+                color-stop(#a176c8),
+                color-stop(#759beb),
+                color-stop(#65beb3),
+                to(#70db96)
+            );
+            background: linear-gradient(
+                to right,
+                #fdde5c,
+                #f8ab5e,
+                #f56a62,
+                #a176c8,
+                #759beb,
+                #65beb3,
+                #70db96
+            );
+            margin-top: 20px;
+            border-radius: 30px;
+            border: 0;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        .bn9 > span {
+            display: block;
+            padding: 10px 23px;
+            font-size: 17px;
+            font-weight: 500;
+            background: #ebebeb;
+            border-radius: 30px;
+        }
+
+        #render-block {
+            margin-top: 15px;
+        }
+
+        #op_main_head {
+            margin-top: 40px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+        <!-------------- Navigation Bar -------------->
+        <div id="navbar">
+            <span id="navhead">
+                Car Tyre Performance
+            </span>
+            <hr><hr><hr>
+
+            <span class="bookmark">
+                <a href="/ml">
+                    Try ML Predictor here
+                </a>
+            </span>
+        </div>
+
+
+        <!-------------- Form ---------------->
+        <form action="/get-graph-data" method="POST" enctype="multipart/form-data">
+
+            <div id="form_heading">
+                <h4>Check Parameter Performance </h4>
+            </div>
+
+            <div id="daterange">
+
+                <ul>
+
+                    <li>
+                        <label for="startdate">From:</label>
+                        <input type="date" id="startdate" name="startdate" />
+                    </li>
+
+                    <li>
+                        <label for="enddate">To:</label>
+                        <input type="date" id="enddate" name="enddate" />
+                    </li>
+
+                    <li class="button">
+                        <a href="/buttons/9"><button class="bn9" type="submit"><span>Get Data</span></button></a>
+                    </li>
+    
+                </ul>
+
+                <br>
+                <br>
+                
+            </div>
+
+        </form>
+
+
+        <!-- Code for rendering correct block based upon response from API -->
+        <div id="render-block">
+
+            {% if result == 0 %}
+                <h2>
+                    Oops, No Data Found in these time stamps! <br>
+                    <strong> <span style="color:#000;"> Tip :- </span>Try between March and November </strong>
+                </h2>
+                <img id="oops_image" src="{{url_for('static', filename='no_data.webp')}}">
+                
+            {% elif result == 1 %}
+            <h3 id="op_main_head">The Car Tyre Performance charts for the selected range can be seen below.</h3>
+            <img src="{{url_for('static', filename='my_graph.png')}}">
+
+            {% elif result == 2 %}
+            <h2>
+                Uh-oh, something's weird! <br>
+                <strong> <span style="color:#000;"> Start-month cannot be greater than End-month. </span> </strong>
+            </h2>
+
+            {% elif result == 3 %}
+                <span id="empty_screen"></span>
+
+            {% endif %}
+
+        </div>
+
+    </body>
+
+</html>
